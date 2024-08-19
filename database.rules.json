@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": "now < 1725832800000",  // 2024-9-9
+    ".write": "now < 1725832800000",  // 2024-9-9
+    "users": {
+      "$userId": {
+        ".read": "$userId === auth.uid",
+        ".write": "$userId === auth.uid",
+        // Ensure users cannot change their own role
+        "role": {
+          ".validate": "newData.val() === data.val()"
+        }
+      }
+    },
+    "data": {
+      ".read": "auth != null",
+      ".write": "root.child('users/' + auth.uid + '/role').val() === 'admin'" // only admins can write
+    }
+  }
+}
