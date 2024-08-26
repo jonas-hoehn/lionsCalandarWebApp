@@ -21,7 +21,7 @@ import {
 	btnLogout
 } from './ui'
 
-import { getDatabase, ref, get, set , child, onValue, query, startAt, endBefore, orderByChild} from "firebase/database";
+import { getDatabase, ref, get, set , remove, child, onValue, query, startAt, endBefore, orderByChild} from "firebase/database";
 import {onChildAdded} from "@firebase/database";
 
 
@@ -107,15 +107,17 @@ function updateScanSnapshot(snapshot) {
 		const th = addTH(tr, String(counter++));
 		th.scope = "row"
 		addTD(tr, child.key);
-		if (child.key === lastKeyAdded) {
+		if (() => limitedScans("","") === lastKeyAdded) {
 			tr.style.backgroundColor = '#ffe396';
 		}
 		addTD(tr, child.val().date + " " + child.val().time);
 		addTD(tr, child.val().cashier);
 		if (role === 'admin') {
 			const button = document.createElement("button")
-			button.textContent = "delete"
+			button.textContent = "löschen"
+			button.className = 'loeschenButton'
 			var td = document.createElement("td")
+			button.addEventListener("click", () => deleteScan(child.key))
 			td.appendChild(button)
 			tr.appendChild(td)
 		}
@@ -196,23 +198,7 @@ function limitedScans(startDate, endDate) {
 	}
 
 	onValue(queryRef, (snapshot) => {
-		var counter = 1
-		snapshot.forEach(child => {
-			const tr = document.createElement('tr')
-			var td = document.createElement("td")
-			td.textContent = String(counter++)
-			tr.appendChild(td)
-			td = document.createElement("td")
-			td.textContent = child.key
-			tr.appendChild(td)
-			td = document.createElement("td")
-			td.textContent = child.val().date + " " + child.val().time
-			tr.appendChild(td)
-			td = document.createElement("td")
-			td.textContent = child.val().cashier
-			tr.appendChild(td)
-			table.appendChild(tr)
-		})
+		updateScanSnapshot(snapshot)
 	});
 }
 window.limitedScans = limitedScans
@@ -281,6 +267,7 @@ const monitorAuthState = async () => {
 						// Provide normal user access
 						console.log('User logged in');
 					}
+					window.menuDisplayName.innerHTML=userData.displayName
 					onValue(updateSnapshotQuery, (snapshot) => {
 						updateScanSnapshot(snapshot);
 					})
@@ -292,8 +279,6 @@ const monitorAuthState = async () => {
 			});
 			console.log(user)
 			showApp()
-
-			window.menuDisplayName.innerHTML=user.displayName
 			hideLoginError()
 		}
 		else {
@@ -305,10 +290,13 @@ const monitorAuthState = async () => {
 	})
 }
 
+
 // Log out
 const logout = async () => {
 	await signOut(auth);
 }
+
+
 
 btnLogin.addEventListener("click", loginEmailPassword)
 btnSignup.addEventListener("click", createAccount)
@@ -318,3 +306,42 @@ window.menuLogout.addEventListener("click", logout)
 //connectAuthEmulator(auth, "http://localhost:9099");
 
 monitorAuthState();
+
+const keyQuestion = document.getElementById('deleteKeyQuestion')
+const modal = document.getElementById('customModal');
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+
+function deleteScan(key)  {
+
+	keyQuestion.textContent = `Möchten Sie den Kalendereintrag ${key} wirklich löschen?`
+	keyQuestion.setAttribute('key', key)
+	modal.style.display = 'block';
+	noBtn.focus();
+}
+
+noBtn.onclick = function() {
+	modal.style.display = 'none';
+	alert("Der Eintrag wurde nicht entfernt.");
+}
+
+yesBtn.onclick = function() {
+	modal.style.display = 'none';
+	const key = keyQuestion.getAttribute('key')
+	console.info(`Deleting ${key} ...`)
+	const deleteRef = ref(database, databaseScans+ key)
+	remove(deleteRef)
+		.then(() => {
+			alert(`Eintrag ${key} wurde gelöscht`);
+		})
+		.catch((error) => {
+			alert(`Eintrag ${key} konnte nicht gelöscht werden:`, error);
+		});
+}
+
+// Close the modal if clicked outside of the content
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = 'none';
+	}
+}
