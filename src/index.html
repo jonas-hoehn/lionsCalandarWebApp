@@ -3,30 +3,87 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lions Kalender Scan Tracking App </title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link rel="stylesheet" href="css/calendarscan.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css" />
     </head>
     <body>
+        <nav>
+            <ul>
+                <li></li>
+                <li><strong>Lions Kalender Tracking App</strong></li>
+            </ul>
+            <ul>
+                <li><a id="menuLogout" style="display: none">Logout</a></li>
+                <li id="menuDisplayName"></li>
+                <li id="theme-toggle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor" class="icon-theme-toggle "><clipPath id="theme-toggle-cutout"><path d="M0-11h25a1 1 0 0017 13v30H0Z"></path></clipPath><g clip-path="url(#theme-toggle-cutout)"><circle cx="16" cy="16" r="8.4"></circle><path d="M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z"></path></g></svg></li>
+            </ul>
+        </nav>
         <div class="container">
-            <div class="header center">
+            <div class="container-center">
                 <img src="images/lions-logo.png" alt="">
-                <h4>Lions Kalender Tracking Web-App</h4>
             </div>
 
-            <button id="testScan" onclick="window.testScanFunction()">Test-Scan</button>
-            <div id="scans-table-holder">
-                <table id="scans">
-                    <th>
-                        <tr>
-                            <th>Nummer</th>
-                            <th>Datum/Uhrzeit</th>
-                            <th>Kassierer</th>
+            <div id="login">
+                <form>
+                    <div class="group">
+                        <input id="txtEmail" type="email">
+                        <label>Email</label>
+                    </div>
+                    <div class="group">
+                        <input id="txtDisplayName" type="text">
+                        <label>Name</label>
+                    </div>
+                    <div class="group">
+                        <input id="txtPassword" type="password">
+                        <label>Password</label>
+                    </div>
+                    <div id="divLoginError" class="group">
+                        <div id="lblLoginErrorMessage" class="errorlabel">Error message</div>
+                    </div>
+                    <button id="btnLogin" type="button" class="button buttonBlue">Log in</button>
+                    <button id="btnSignup" type="button" class="button buttonBlue">Sign up</button>
+                </form>
+            </div>
+
+            <div id="app" style="display: none">
+                <div class="grid" role="group">
+                    <button id="_0" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2025-01-01T23:59:59').getTime())">0</button>
+                    <button id="_1" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2024-01-01T23:59:59').getTime())">1</button>
+                    <button id="_2" onclick="limitedScans(new Date('2024-01-02T00:00:00').getTime(), new Date('2024-01-02T23:59:59').getTime())">2</button>
+                    <button id="_3" onclick="limitedScans(new Date('2024-01-03T00:00:00').getTime(), new Date('2024-01-03T23:59:59').getTime())">3</button>
+                    <button id="_4" onclick="limitedScans(new Date('2024-01-04T00:00:00').getTime(), new Date('2024-01-04T23:59:59').getTime())">4</button>
+                    <button id="_5" onclick="limitedScans(new Date('2024-01-05T00:00:00').getTime(), new Date('2024-01-05T23:59:59').getTime())">5</button>
+                    <button id="_6" onclick="limitedScans(new Date('2024-01-06T00:00:00').getTime(), new Date('2024-01-06T23:59:59').getTime())">6</button>
+                    <button id="_7" onclick="limitedScans(new Date('2024-01-07T00:00:00').getTime(), new Date('2024-01-07T23:59:59').getTime())">7</button>
+                    <button id="_8" onclick="limitedScans(new Date('2024-01-08T00:00:00').getTime(), new Date('2024-01-08T23:59:59').getTime())">8</button>
+                    <button id="testScan" style="background-color: #FECC63" onclick="testScan()">Test-Scan</button>
+                </div>
+                <div id="scans-table-holder">
+                    <table id="scans">
+                        <th>
+                            <tr>
+                        <th>Nummer</th>
+                        <th>Datum/Uhrzeit</th>
+                        <th>Kassierer</th>
                         </tr>
-                    </th>
-                </table>
+                        </th>
+                    </table>
+                </div>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-        <script src="/bundle.js"> </script>
+        <script>
+            const toggleButton = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            toggleButton.addEventListener('click', function () {
+                const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        </script>
     </body>
 </html>
