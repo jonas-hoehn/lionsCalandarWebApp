@@ -187,6 +187,9 @@ input:focus ~ .highlight {
 }
 .button:focus { outline: 0; }
 
+
+/* Button modifiers */
+
 .buttonBlue {
     background: #4a89dc;
     text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
@@ -276,6 +279,14 @@ footer img:focus , footer a:focus { outline: none; }
 #dateFilter button {
     padding: 1px;
     font-size: 16px;
+}
+
+#dateFilter select {
+    padding: 1px;
+    font-size: 16px;
+    min-width: fit-content;
+    grid-column-gap: 6px;
+    width: fit-content;
 }
 
 .loeschenButton {

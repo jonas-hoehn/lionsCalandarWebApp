@@ -48,38 +48,53 @@
             <div id="app" style="display: none">
                 <div id="dateFilter" class="grid" role="group">
                     <div>
-                        <button id="_0" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2025-01-01T23:59:59').getTime())">alle</button>
-                        <button id="_1" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2024-01-01T23:59:59').getTime())">1.</button>
-                        <button id="_2" onclick="limitedScans(new Date('2024-01-02T00:00:00').getTime(), new Date('2024-01-02T23:59:59').getTime())">2.</button>
-                        <button id="_3" onclick="limitedScans(new Date('2024-01-03T00:00:00').getTime(), new Date('2024-01-03T23:59:59').getTime())">3.</button>
-                        <button id="_4" onclick="limitedScans(new Date('2024-01-04T00:00:00').getTime(), new Date('2024-01-04T23:59:59').getTime())">4.</button>
-                        <button id="_5" onclick="limitedScans(new Date('2024-01-05T00:00:00').getTime(), new Date('2024-01-05T23:59:59').getTime())">5.</button>
-                        <button id="_6" onclick="limitedScans(new Date('2024-01-06T00:00:00').getTime(), new Date('2024-01-06T23:59:59').getTime())">6.</button>
-                        <button id="_7" onclick="limitedScans(new Date('2024-01-07T00:00:00').getTime(), new Date('2024-01-07T23:59:59').getTime())">7.</button>
-                        <button id="_8" onclick="limitedScans(new Date('2024-01-08T00:00:00').getTime(), new Date('2024-01-08T23:59:59').getTime())">8.</button>
-                        <button id="_9" onclick="limitedScans(new Date('2024-01-09T00:00:00').getTime(), new Date('2024-01-09T23:59:59').getTime())">9.</button>
-                        <button id="_10" onclick="limitedScans(new Date('2024-01-10T00:00:00').getTime(), new Date('2024-01-10T23:59:59').getTime())">10</button>
-                        <button id="_11" onclick="limitedScans(new Date('2024-01-11T00:00:00').getTime(), new Date('2024-01-11T23:59:59').getTime())">11.</button>
-                        <button id="_12" onclick="limitedScans(new Date('2024-01-12T00:00:00').getTime(), new Date('2024-01-12T23:59:59').getTime())">12.</button>
-                        <button id="_13" onclick="limitedScans(new Date('2024-01-13T00:00:00').getTime(), new Date('2024-01-13T23:59:59').getTime())">13.</button>
-                        <button id="_14" onclick="limitedScans(new Date('2024-01-14T00:00:00').getTime(), new Date('2024-01-14T23:59:59').getTime())">14.</button>
-                        <button id="_15" onclick="limitedScans(new Date('2024-01-15T00:00:00').getTime(), new Date('2024-01-15T23:59:59').getTime())">15.</button>
-                        <button id="_16" onclick="limitedScans(new Date('2024-01-16T00:00:00').getTime(), new Date('2024-01-16T23:59:59').getTime())">16.</button>
-                        <button id="_17" onclick="limitedScans(new Date('2024-01-17T00:00:00').getTime(), new Date('2024-01-17T23:59:59').getTime())">17.</button>
-                        <button id="_18" onclick="limitedScans(new Date('2024-01-18T00:00:00').getTime(), new Date('2024-01-18T23:59:59').getTime())">18.</button>
-                        <button id="_19" onclick="limitedScans(new Date('2024-01-19T00:00:00').getTime(), new Date('2024-01-19T23:59:59').getTime())">19.</button>
-                        <button id="_20" onclick="limitedScans(new Date('2024-01-20T00:00:00').getTime(), new Date('2024-01-20T23:59:59').getTime())">20</button>
-                        <button id="_21" onclick="limitedScans(new Date('2024-01-21T00:00:00').getTime(), new Date('2024-01-21T23:59:59').getTime())">21.</button>
-                        <button id="_22" onclick="limitedScans(new Date('2024-01-22T00:00:00').getTime(), new Date('2024-01-22T23:59:59').getTime())">22.</button>
-                        <button id="_23" onclick="limitedScans(new Date('2024-01-23T00:00:00').getTime(), new Date('2024-01-23T23:59:59').getTime())">23.</button>
-                        <button id="_24" onclick="limitedScans(new Date('2024-01-24T00:00:00').getTime(), new Date('2024-01-24T23:59:59').getTime())">24.</button>
-                        <button id="_25" onclick="limitedScans(new Date('2024-01-25T00:00:00').getTime(), new Date('2024-01-25T23:59:59').getTime())">25.</button>
-                        <button id="_26" onclick="limitedScans(new Date('2024-01-26T00:00:00').getTime(), new Date('2024-01-26T23:59:59').getTime())">26.</button>
-                        <button id="_27" onclick="limitedScans(new Date('2024-01-27T00:00:00').getTime(), new Date('2024-01-27T23:59:59').getTime())">27.</button>
-                        <button id="_28" onclick="limitedScans(new Date('2024-01-28T00:00:00').getTime(), new Date('2024-01-28T23:59:59').getTime())">28.</button>
-                        <button id="_29" onclick="limitedScans(new Date('2024-01-29T00:00:00').getTime(), new Date('2024-01-29T23:59:59').getTime())">29.</button>
-                        <button id="_30" onclick="limitedScans(new Date('2024-01-30T00:00:00').getTime(), new Date('2024-01-30T23:59:59').getTime())">30</button>
-                        <button id="_31" onclick="limitedScans(new Date('2024-01-31T00:00:00').getTime(), new Date('2024-01-31T23:59:59').getTime())">31</button>
+                        <button id="_0" style="min-width: 2em" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2025-01-01T23:59:59').getTime())">alle</button>
+                        <button id="_1" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-01T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-01T23:59:59').getTime())">1.</button>
+                        <button id="_2" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-02T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-02T23:59:59').getTime())">2.</button>
+                        <button id="_3" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-03T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-03T23:59:59').getTime())">3.</button>
+                        <button id="_4" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-04T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-04T23:59:59').getTime())">4.</button>
+                        <button id="_5" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-05T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-05T23:59:59').getTime())">5.</button>
+                        <button id="_6" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-06T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-06T23:59:59').getTime())">6.</button>
+                        <button id="_7" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-07T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-07T23:59:59').getTime())">7.</button>
+                        <button id="_8" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-08T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-08T23:59:59').getTime())">8.</button>
+                        <button id="_9" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-09T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-09T23:59:59').getTime())">9.</button>
+                        <button id="_10" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-10T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-10T23:59:59').getTime())">10</button>
+                        <button id="_11" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-11T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-11T23:59:59').getTime())">11.</button>
+                        <button id="_12" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-12T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-12T23:59:59').getTime())">12.</button>
+                        <button id="_13" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-13T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-13T23:59:59').getTime())">13.</button>
+                        <button id="_14" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-14T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-14T23:59:59').getTime())">14.</button>
+                        <button id="_15" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-15T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-15T23:59:59').getTime())">15.</button>
+                        <button id="_16" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-16T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-16T23:59:59').getTime())">16.</button>
+                        <button id="_17" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-17T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-17T23:59:59').getTime())">17.</button>
+                        <button id="_18" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-18T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-18T23:59:59').getTime())">18.</button>
+                        <button id="_19" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-19T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-19T23:59:59').getTime())">19.</button>
+                        <button id="_20" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-20T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-20T23:59:59').getTime())">20</button>
+                        <button id="_21" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-21T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-21T23:59:59').getTime())">21.</button>
+                        <button id="_22" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-22T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-22T23:59:59').getTime())">22.</button>
+                        <button id="_23" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-23T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-23T23:59:59').getTime())">23.</button>
+                        <button id="_24" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-24T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-24T23:59:59').getTime())">24.</button>
+                        <button id="_25" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-25T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-25T23:59:59').getTime())">25.</button>
+                        <button id="_26" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-26T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-26T23:59:59').getTime())">26.</button>
+                        <button id="_27" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-27T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-27T23:59:59').getTime())">27.</button>
+                        <button id="_31" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-31T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-31T23:59:59').getTime())">31.</button>
+                        <button id="_28" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-28T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-28T23:59:59').getTime())">28.</button>
+                        <button id="_29" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-29T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-29T23:59:59').getTime())">29.</button>
+                        <button id="_30" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-30T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-30T23:59:59').getTime())">30.</button>
+                        <button id="_31" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-31T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-31T23:59:59').getTime())">31.</button>
+                        <select id="month" style="padding: 0px;">
+                            <option value="01" selected>Januar</option>
+                            <option value="02">Februar</option>
+                            <option value="03">März</option>
+                            <option value="04">April</option>
+                            <option value="05">Mai</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Dezember</option>
+                        </select>
                         <button id="testScan" style="background-color: #FECC63" onclick="testScan()">Test-Scan</button>
                     </div>
                 </div>
@@ -108,7 +123,7 @@
         <script>
             const toggleButton = document.getElementById('theme-toggle');
             const currentTheme = localStorage.getItem('theme') || 'light';
-
+			window.selectedMonth = '01';
             document.documentElement.setAttribute('data-theme', currentTheme);
 
             toggleButton.addEventListener('click', function () {
@@ -116,6 +131,10 @@
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
             });
+			document.getElementById('month').addEventListener('change', function() {
+				window.selectedMonth = this.value;
+			});
         </script>
+        <script defer src="bundle.js"></script></body>
     </body>
 </html>
