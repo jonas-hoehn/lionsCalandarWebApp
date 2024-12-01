@@ -20,6 +20,7 @@ import {
 	btnSignup,
 	btnLogout
 } from './ui'
+import Chart from 'chart.js/auto';
 
 import { getDatabase, ref, get, set , remove, child, onValue, query, startAt, endBefore, orderByChild} from "firebase/database";
 import {onChildAdded} from "@firebase/database";
@@ -50,6 +51,7 @@ const databaseUsers="users/";
 const dbRef = ref(database, databaseScans);
 const dbUserRef = ref(database, databaseUsers);
 let role="";
+let scannedByDay = {};
 
 var lastKeyAdded = 0
 onChildAdded(dbRef, (snapshot) => {
@@ -102,6 +104,7 @@ function updateScanSnapshot(snapshot) {
 	table.setAttribute("aria-busy", "true")
 	// const reversedData = Object.entries(snapshot).reverse().map(([key, value]) => ({ key, value }));
 	var counter = 1
+	scannedByDay = {}
 	snapshot.forEach(child => {
 		const tr = document.createElement('tr')
 		const th = addTH(tr, String(counter++));
@@ -122,8 +125,65 @@ function updateScanSnapshot(snapshot) {
 			tr.appendChild(td)
 		}
 		tbody.appendChild(tr)
+		// increment scannedByDay counter with key child.val().date
+		let currentDate = child.val().date;
+		if (scannedByDay[currentDate]) {
+			scannedByDay[currentDate]++
+		} else {
+			scannedByDay[currentDate] = 1
+		}
 	})
 	table.removeAttribute("aria-busy")
+	updateChart()
+}
+
+function createDownload(snapshot) {
+		// remove body element of document
+		//document.getElementsByTagName("body");
+		let counter = 1
+		snapshot.forEach(child => {
+			document.writeln(String(counter++) + ", " + child.key + ", " + child.val().date + " " + child.val().time + ", \"" + child.val().cashier + "\"")
+			document.writeln("<br>")
+		})
+}
+
+function updateChart() {
+	const labels = Object.keys(scannedByDay);
+	const values = Object.values(scannedByDay);
+
+	const ctx = document.getElementById('scannedChart').getContext('2d');
+	const myChart = new Chart(ctx, {
+		type:
+			'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Gescannte Kalender',
+				data: values,
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales:
+				{
+					x: {
+						title: {
+							display: true,
+							text:
+								'Date'
+						}
+					},
+					y: {
+						title: {
+							display: true,
+							text: 'Value'
+						}
+					}
+				}
+		}
+	})
 }
 
 const names = ["stefan", "jonas","justo", "helmut", "enrico", "philipp"]
@@ -180,6 +240,20 @@ window.testScan=testScan
 // window._1 = () => limitedScans("","")
 // window._1 = function() {limitedScans("","")}
 
+window.lastDaySelected = "01"
+function limitedScans2(day, month) {
+	if (day === undefined) {
+		day = window.lastDaySelected
+	} else {
+		lastDaySelected = day
+	}
+	if (month !== undefined) {
+		window.selectedMonth = month
+	}
+	const startDate = new Date('2024-'+window.selectedMonth+'-'+day+'T00:00:00').getTime()
+	const endDate = new Date('2024-'+window.selectedMonth+'-'+day+'T23:59:59').getTime()
+	limitedScans(startDate, endDate)
+}
 function limitedScans(startDate, endDate) {
 	const databaseRef = ref(database, databaseScans)
 	const queryRef = query(
@@ -202,6 +276,7 @@ function limitedScans(startDate, endDate) {
 	});
 }
 window.limitedScans = limitedScans
+window.limitedScans2 = limitedScans2
 
 
 const loginEmailPassword = async () => {
@@ -242,6 +317,7 @@ const createAccount = async () => {
 			.catch((error) => {
 				// An error occurred during user creation
 				console.error("Error creating user: ", error);
+				showLoginError(error)
 			});
 	}
 	catch(error) {
@@ -262,23 +338,30 @@ const monitorAuthState = async () => {
 					role = userData.role;
 					if (role === 'admin') {
 						// Provide admin access
-						console.log('Admin logged in - only admins can write to the db which is check on firebase side - sorry guys...');
+						console.log('Admin logged in - only admins can write to the db which is checked on firebase side - sorry guys...');
 					} else {
 						// Provide normal user access
 						console.log('User logged in');
 					}
-					window.menuDisplayName.innerHTML=userData.displayName
+					showApp()
+					if (window.menuDisplayName)
+						window.menuDisplayName.innerHTML=userData.displayName
 					onValue(updateSnapshotQuery, (snapshot) => {
-						updateScanSnapshot(snapshot);
+						if (document.getElementById('scans')) {
+							updateScanSnapshot(snapshot);
+						} else {
+							createDownload(snapshot)
+						}
 					})
 				} else {
+					window.menuDisplayName.innerHTML= `No user data found for ${uid}`
 					console.log('No user data found');
 				}
 			}).catch((error) => {
 				console.error('Error fetching user data:', error);
 			});
 			console.log(user)
-			showApp()
+
 			hideLoginError()
 		}
 		else {
@@ -297,10 +380,9 @@ const logout = async () => {
 }
 
 
-
-btnLogin.addEventListener("click", loginEmailPassword)
-btnSignup.addEventListener("click", createAccount)
-window.menuLogout.addEventListener("click", logout)
+if (btnLogin) btnLogin.addEventListener("click", loginEmailPassword)
+if (btnSignup) btnSignup.addEventListener("click", createAccount)
+if (window.menuLogout) window.menuLogout.addEventListener("click", logout)
 
 
 //connectAuthEmulator(auth, "http://localhost:9099");
@@ -319,25 +401,27 @@ function deleteScan(key)  {
 	modal.style.display = 'block';
 	noBtn.focus();
 }
-
-noBtn.onclick = function() {
-	modal.style.display = 'none';
-	alert("Der Eintrag wurde nicht entfernt.");
+if (noBtn) {
+	noBtn.onclick = function() {
+		modal.style.display = 'none';
+		alert("Der Eintrag wurde nicht entfernt.");
+	}
 }
 
-yesBtn.onclick = function() {
-	modal.style.display = 'none';
-	const key = keyQuestion.getAttribute('key')
-	console.info(`Deleting ${key} ...`)
-	const deleteRef = ref(database, databaseScans+ key)
-	remove(deleteRef)
-		.then(() => {
-			alert(`Eintrag ${key} wurde gelöscht`);
-		})
-		.catch((error) => {
-			alert(`Eintrag ${key} konnte nicht gelöscht werden:`, error);
-		});
-}
+if (yesBtn)
+	yesBtn.onclick = function() {
+		modal.style.display = 'none';
+		const key = keyQuestion.getAttribute('key')
+		console.info(`Deleting ${key} ...`)
+		const deleteRef = ref(database, databaseScans+ key)
+		remove(deleteRef)
+			.then(() => {
+				alert(`Eintrag ${key} wurde gelöscht`);
+			})
+			.catch((error) => {
+				alert(`Eintrag ${key} konnte nicht gelöscht werden:`, error);
+			});
+	}
 
 // Close the modal if clicked outside of the content
 window.onclick = function(event) {

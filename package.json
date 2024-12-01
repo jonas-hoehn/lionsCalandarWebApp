@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "buffer": "^6.0.3",
+    "chart.js": "^4.4.6",
     "firebase": "^10.13.0",
     "firebase-admin": "^12.3.1",
     "firebaseui": "^6.1.0",

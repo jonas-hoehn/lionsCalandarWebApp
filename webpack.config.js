@@ -23,6 +23,12 @@ module.exports = {
 			template: './index.html', // Path to your HTML file
 			inject: 'body', // Inject styles into the body
 			inlineSource: '.(css)$' // Inline CSS files
+		}),
+		new HtmlWebpackPlugin({
+			template: './download.html', // Path to your download HTML file
+			filename: 'download.html', // Output filename
+			inject: 'body', // Inject styles into the body
+			inlineSource: '.(css)$' // Inline CSS files
 		})
 	]
 }

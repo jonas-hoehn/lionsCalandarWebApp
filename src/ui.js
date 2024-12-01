@@ -21,12 +21,15 @@ export const showLoginForm = () => {
 }
 
 export const showApp = () => {
-	login.style.display = 'none'
-	app.style.display = 'block'
-	window.menuLogout.style.display = 'block'
+	if (document.querySelector('#login')) {
+		login.style.display = 'none'
+		app.style.display = 'block'
+		window.menuLogout.style.display = 'block'
+	}
 }
 
 export const hideLoginError = () => {
+	if (!divLoginError) return;
 	divLoginError.style.display = 'none'
 	lblLoginErrorMessage.innerHTML = ''
 }
@@ -34,7 +37,19 @@ export const hideLoginError = () => {
 export const showLoginError = (error) => {
 	if (error.code == AuthErrorCodes.INVALID_PASSWORD) {
 		divLoginError.style.display = 'block'
-		lblLoginErrorMessage.innerHTML = `Wrong password. Try again.`
+		lblLoginErrorMessage.innerHTML = `Falsches Passwort. Bitte erneut versuchen.`
+	} else if (error.code == AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
+		divLoginError.style.display = 'block'
+		lblLoginErrorMessage.innerHTML = `Falsche Login Daten. Bitte erneut versuchen.`
+	} else if (error.code == AuthErrorCodes.USER_NOT_FOUND) {
+		divLoginError.style.display = 'block'
+		lblLoginErrorMessage.innerHTML = `Benutzer nicht gefunden. Bitte erneut versuchen.`
+	} else if (error.code == AuthErrorCodes.EMAIL_ALREADY_IN_USE) {
+		divLoginError.style.display = 'block'
+		lblLoginErrorMessage.innerHTML = `Email bereits in Verwendung. Bitte erneut versuchen.`
+	} else if (error.code) {
+		divLoginError.style.display = 'block'
+		lblLoginErrorMessage.innerHTML = `Fehler: ${error.message}. Bitte wenden Sie sich an den Administrator.`
 	}
 	else {
 		divLoginError.style.display = 'none'

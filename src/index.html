@@ -2,7 +2,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lions Kalender Scan Tracking App </title>
+        <title>Lions Kalender Scan Tracking App 1.0</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="css/calendarscan.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.yellow.min.css" />
     </head>
@@ -30,10 +31,6 @@
                         <label>Email</label>
                     </div>
                     <div class="group">
-                        <input id="txtDisplayName" type="text">
-                        <label>Name</label>
-                    </div>
-                    <div class="group">
                         <input id="txtPassword" type="password">
                         <label>Password</label>
                     </div>
@@ -41,6 +38,10 @@
                         <div id="lblLoginErrorMessage" class="errorlabel">Error message</div>
                     </div>
                     <button id="btnLogin" type="button" class="button buttonBlue">Log in</button>
+                    <div class="group" style="margin-bottom: 0px !important; margin-top: 1em">
+                        <input id="txtDisplayName" type="text" style="margin-bottom: 0px !important; margin-top: 1em">
+                        <label>Name</label>
+                    </div>
                     <button id="btnSignup" type="button" class="button buttonBlue">Sign up</button>
                 </form>
             </div>
@@ -49,7 +50,7 @@
                 <div id="dateFilter" class="grid" role="group">
                     <div>
                         <button id="_0" style="min-width: 2em" onclick="limitedScans(new Date('2024-01-01T00:00:00').getTime(), new Date('2025-01-01T23:59:59').getTime())">alle</button>
-                        <button id="_1" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-01T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-01T23:59:59').getTime())">1.</button>
+                        <button id="_1" onclick="limitedScans2('01')">1.</button>
                         <button id="_2" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-02T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-02T23:59:59').getTime())">2.</button>
                         <button id="_3" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-03T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-03T23:59:59').getTime())">3.</button>
                         <button id="_4" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-04T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-04T23:59:59').getTime())">4.</button>
@@ -65,7 +66,7 @@
                         <button id="_14" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-14T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-14T23:59:59').getTime())">14.</button>
                         <button id="_15" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-15T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-15T23:59:59').getTime())">15.</button>
                         <button id="_16" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-16T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-16T23:59:59').getTime())">16.</button>
-                        <button id="_17" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-17T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-17T23:59:59').getTime())">17.</button>
+                        <button id="_17" onclick="limitedScans2('17')">17.</button>
                         <button id="_18" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-18T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-18T23:59:59').getTime())">18.</button>
                         <button id="_19" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-19T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-19T23:59:59').getTime())">19.</button>
                         <button id="_20" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-20T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-20T23:59:59').getTime())">20</button>
@@ -76,7 +77,6 @@
                         <button id="_25" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-25T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-25T23:59:59').getTime())">25.</button>
                         <button id="_26" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-26T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-26T23:59:59').getTime())">26.</button>
                         <button id="_27" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-27T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-27T23:59:59').getTime())">27.</button>
-                        <button id="_31" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-31T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-31T23:59:59').getTime())">31.</button>
                         <button id="_28" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-28T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-28T23:59:59').getTime())">28.</button>
                         <button id="_29" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-29T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-29T23:59:59').getTime())">29.</button>
                         <button id="_30" onclick="limitedScans(new Date('2024-'+window.selectedMonth+'-30T00:00:00').getTime(), new Date('2024-'+window.selectedMonth+'-30T23:59:59').getTime())">30.</button>
@@ -95,7 +95,8 @@
                             <option value="11">November</option>
                             <option value="12">Dezember</option>
                         </select>
-                        <button id="testScan" style="background-color: #FECC63" onclick="testScan()">Test-Scan</button>
+                        <!-- button id="testScan" style="background-color: #FECC63" onclick="testScan()">Test-Scan</button -->
+                        <a href="download.html" target="_blank"><button id="download" style="background-color: #FECC63" >Download</button></a>
                     </div>
                 </div>
                 <div id="scans-table-holder">
@@ -109,6 +110,7 @@
                         </th>
                     </table>
                 </div>
+                <canvas id="scannedChart"></canvas>
             </div>
         </div>
         <div id="customModal" class="modal">
@@ -133,6 +135,7 @@
             });
 			document.getElementById('month').addEventListener('change', function() {
 				window.selectedMonth = this.value;
+				limitedScans2(undefined,this.value)
 			});
         </script>
         <script defer src="bundle.js"></script></body>
